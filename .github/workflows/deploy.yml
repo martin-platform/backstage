@@ -1,0 +1,29 @@
+name: Deploy to GCP
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+    - name: Create type definitions
+      run: yarn tsc
+    - name: Build artifacts
+      run: yarn build
+    - name: Build the Docker image
+      run: docker image build . -f packages/backend/Dockerfile --tag backstage
+    - name: Push to GithubPackages
+      uses: stijnvdkolk/githubpackages-docker@v1.0.4
+      with:
+        repo-token: $GITHUB_TOKEN
+        image-name: backstage
