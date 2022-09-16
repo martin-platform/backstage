@@ -7,13 +7,21 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
 
     steps:
     - uses: actions/checkout@v3
+    - name: Authenticate to Google
+      id: 'auth'
+      uses: 'google-github-actions/auth@v0.8.1'
+      with:
+        workload_identity_provider: 'projects/552671331836/locations/global/workloadIdentityPools/github-actions-pool/*'
+        service_account: 'github-actions-service-account@martin-project-4mlr.iam.gserviceaccount.com'
     - name: Install dependencies
       run: yarn install --frozen-lockfile
     - name: Create type definitions
