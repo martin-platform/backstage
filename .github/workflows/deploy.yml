@@ -30,8 +30,7 @@ jobs:
       run: yarn build
     - name: Build the Docker image
       run: docker image build . -f packages/backend/Dockerfile --tag backstage
-    - name: Push to GithubPackages
-      uses: stijnvdkolk/githubpackages-docker@v1.0.4
-      with:
-        repo-token: $GITHUB_TOKEN
-        image-name: backstage
+    - name: Docker login to Artifact registry
+      run: |-
+        echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://europe-north1-docker.pkg.dev
+
