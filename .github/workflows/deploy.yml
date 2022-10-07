@@ -22,9 +22,14 @@ jobs:
         with:
           workload_identity_provider: 'projects/552671331836/locations/global/workloadIdentityPools/github-actions-identity-pool-3/providers/github-actions-poolprovider'
           service_account: 'github-actions-service-account@martin-project-4mlr.iam.gserviceaccount.com'
-      - name: Docker login to Artifact registry
-        uses: 'docker/login-action@v1'
+          create_credentials_file: true
+      - run: gcloud auth configure-docker europe-docker.pkg.dev
+      - name: Build and Push OCI
+        uses: docker/build-push-action@v3
         with:
-          registry: 'europe-north1-docker.pkg.dev'
-          username: 'oauth2accesstoken'
-          password: '${{ steps.auth.outputs.access_token }}'
+          context: .
+          file: Dockerfile
+          build-args: |
+            binary_name=backstage
+          push: ${{ GitHub.ref == 'refs/heads/main' }}
+          tags: europe-docker.pkg.dev/martin-project/backstage/backstage:latest
