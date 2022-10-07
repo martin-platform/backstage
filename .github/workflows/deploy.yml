@@ -28,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: Dockerfile
+          file: ./packages/backend/Dockerfile
           build-args: |
             binary_name=backstage
           push: ${{ GitHub.ref == 'refs/heads/main' }}
