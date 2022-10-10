@@ -39,4 +39,4 @@ jobs:
           build-args: |
             binary_name=backstage
           push: ${{ GitHub.ref == 'refs/heads/main' }}
-          tags: europe-north1-docker.pkg.dev/martin-project-4mlr/backstage/backstage:latest
+          tags: europe-north1-docker.pkg.dev/martin-project-4mlr/martin-project-repo/backstage:latest
