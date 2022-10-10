@@ -24,7 +24,7 @@ jobs:
           service_account: 'github-actions-service-account@martin-project-4mlr.iam.gserviceaccount.com'
           create_credentials_file: true
       - name: Configure Docker
-        run: gcloud auth configure-docker europe-docker.pkg.dev
+        run: gcloud auth configure-docker europe-north1-docker.pkg.dev
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Create type definitions
@@ -39,4 +39,4 @@ jobs:
           build-args: |
             binary_name=backstage
           push: ${{ GitHub.ref == 'refs/heads/main' }}
-          tags: europe-docker.pkg.dev/martin-project/backstage/backstage:latest
+          tags: europe-north1-docker.pkg.dev/martin-project-4mlr/backstage/backstage:latest
