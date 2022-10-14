@@ -53,7 +53,7 @@ jobs:
           build-args: |
             binary_name=backstage
           push: ${{ GitHub.ref == 'refs/heads/main' }}
-          tags: europe-north1-docker.pkg.dev/$PROJECT_ID/martin-project-repo/$IMAGE:$TAG
+          tags: "europe-north1-docker.pkg.dev/$PROJECT_ID/martin-project-repo/$IMAGE:$TAG"
 
       - name: Set up Kustomize
         run: |-
